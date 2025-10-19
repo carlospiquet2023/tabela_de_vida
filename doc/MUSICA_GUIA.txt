@@ -1,0 +1,56 @@
+/* 
+ * GUIA DE MÚSICA AMBIENTE
+ * 
+ * Para adicionar uma trilha sonora relaxante ao projeto:
+ * 
+ * 1. OPÇÕES DE MÚSICAS LIVRES (YouTube Audio Library):
+ *    - "Sad Piano" (Kevin MacLeod)
+ *    - "Reflections" (Audionautix)
+ *    - "Meditation Impromptu" (Kevin MacLeod)
+ *    - "Gymnopedie No 1" (Kevin MacLeod)
+ * 
+ * 2. BAIXAR:
+ *    - Acesse: https://www.youtube.com/audiolibrary
+ *    - Busque por "piano instrumental sad"
+ *    - Baixe o arquivo MP3
+ * 
+ * 3. ADICIONAR AO PROJETO:
+ *    - Coloque o arquivo na pasta: Tabela_da_vida/audio/background.mp3
+ * 
+ * 4. ADICIONAR AO HTML (antes do </body>):
+ * 
+ *    <audio id="backgroundMusic" loop>
+ *        <source src="audio/background.mp3" type="audio/mpeg">
+ *    </audio>
+ * 
+ *    <button id="toggleMusic" style="position: fixed; bottom: 20px; right: 20px; 
+ *            z-index: 1000; padding: 15px 25px; border-radius: 50px; 
+ *            background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3);
+ *            color: white; cursor: pointer; backdrop-filter: blur(10px);">
+ *        🔇 Som
+ *    </button>
+ * 
+ * 5. ADICIONAR JAVASCRIPT (no final do script):
+ * 
+ *    const music = document.getElementById('backgroundMusic');
+ *    const toggleBtn = document.getElementById('toggleMusic');
+ *    let isPlaying = false;
+ * 
+ *    toggleBtn.addEventListener('click', () => {
+ *        if (isPlaying) {
+ *            music.pause();
+ *            toggleBtn.textContent = '🔇 Som';
+ *        } else {
+ *            music.play();
+ *            music.volume = 0.3; // Volume baixo para não incomodar
+ *            toggleBtn.textContent = '🔊 Som';
+ *        }
+ *        isPlaying = !isPlaying;
+ *    });
+ * 
+ * IMPORTANTE:
+ * - A música NÃO toca automaticamente (navegadores bloqueiam autoplay)
+ * - O usuário precisa clicar no botão para ativar
+ * - Volume configurado em 30% para não ser invasivo
+ * - Loop infinito para experiência contínua
+ */

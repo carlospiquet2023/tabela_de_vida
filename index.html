@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela da Vida - Quanto Tempo Resta?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                linear-gradient(135deg, rgba(15, 12, 41, 0.85), rgba(48, 43, 99, 0.85), rgba(36, 36, 62, 0.85)),
+                url('https://i.imgur.com/QMIinay.jpeg');
+            background-size: 400% 400%, cover;
+            background-position: 0% 50%, center;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat, no-repeat;
+            animation: gradientShift 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%, center; }
+            50% { background-position: 100% 50%, center; }
+            100% { background-position: 0% 50%, center; }
+        }
+
+        /* Partículas flutuantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin: 30px 0 10px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 5s ease infinite;
+            font-weight: 700;
+            text-shadow: 0 0 40px rgba(255, 107, 107, 0.5);
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #bbb;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .subtitle.highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-top: -10px;
+            font-size: 1.15em;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .age-input {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        label {
+            font-size: 1.4em;
+            color: #feca57;
+            font-weight: 600;
+        }
+
+        input[type="number"] {
+            width: 180px;
+            padding: 18px;
+            font-size: 1.8em;
+            text-align: center;
+            border: 3px solid #feca57;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 18px 50px;
+            font-size: 1.3em;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 25px rgba(255, 107, 107, 0.4);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 8px 35px rgba(255, 107, 107, 0.6);
+        }
+
+        button:active {
+            transform: scale(1.02);
+        }
+
+        .oracle-button {
+            background: linear-gradient(45deg, #9b59b6, #3498db);
+            margin-top: 20px;
+            box-shadow: 0 5px 25px rgba(155, 89, 182, 0.4);
+        }
+
+        .oracle-button:hover {
+            box-shadow: 0 8px 35px rgba(155, 89, 182, 0.6);
+        }
+
+        .whatsapp-button {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            font-size: 1.1em;
+            padding: 12px 30px;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-button:hover {
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-label {
+            color: #bbb;
+            margin-top: 12px;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            gap: 10px;
+            margin-bottom: 35px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .year-box {
+            aspect-ratio: 1;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .year-box:hover {
+            transform: scale(1.15);
+            z-index: 10;
+        }
+
+        .year-box.lived {
+            background: rgba(255, 107, 107, 0.7);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .year-box.lived:hover {
+            border-color: #feca57;
+            box-shadow: 0 0 20px rgba(254, 202, 87, 0.8);
+        }
+
+        .year-box.remaining {
+            background: rgba(46, 213, 115, 0.4);
+            border-color: #2ed573;
+            box-shadow: 0 0 8px rgba(46, 213, 115, 0.3);
+        }
+
+        .year-box.remaining:hover {
+            border-color: #48dbfb;
+            box-shadow: 0 0 20px rgba(72, 219, 251, 0.8);
+        }
+
+        .message {
+            background: rgba(255, 107, 107, 0.15);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border-left: 6px solid #ff6b6b;
+            font-size: 1.25em;
+            line-height: 1.9;
+            font-style: italic;
+            animation: fadeInUp 0.6s ease-out;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .oracle-message {
+            background: rgba(155, 89, 182, 0.15);
+            border-left-color: #9b59b6;
+            box-shadow: 0 8px 32px rgba(155, 89, 182, 0.3);
+        }
+
+        .oracle-message hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            margin: 20px 0;
+        }
+
+        .oracle-number {
+            font-size: 4em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Sistema de Cards do Oráculo */
+        .oracle-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            perspective: 1000px;
+        }
+
+        .oracle-card {
+            width: 200px;
+            height: 300px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .oracle-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .oracle-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid #ffd700;
+        }
+
+        .card-front .card-symbol {
+            font-size: 4em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            transform: rotateY(180deg);
+            flex-direction: column;
+            text-align: center;
+            overflow-y: auto;
+            border: 3px solid #ffd700;
+        }
+
+        .card-back h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .card-back p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        .oracle-instructions {
+            text-align: center;
+            font-size: 1.3em;
+            color: #9b59b6;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .reset-cards-btn {
+            background: linear-gradient(45deg, #9b59b6, #3498db);
+            margin-top: 20px;
+            font-size: 1.1em;
+            padding: 12px 30px;
+        }
+
+        /* Player de Música - Superior Direito Discreto */
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 280px;
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(30, 30, 60, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            z-index: 10000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .music-player.minimized {
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-player.minimized:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+        }
+
+        .music-player.minimized .player-content {
+            display: none;
+        }
+
+        .music-player.minimized .minimize-btn {
+            font-size: 1.8em;
+            margin: 0;
+            padding: 0;
+        }
+
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .player-title {
+            font-size: 0.9em;
+            color: #ffd700;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .minimize-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+
+        .minimize-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .song-info {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .song-name {
+            font-size: 0.95em;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .song-time {
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        .control-btn.play-pause {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            font-size: 1.5em;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .control-btn.play-pause:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+        }
+        
+        .control-btn.play-pause:active {
+            transform: scale(0.95);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-icon {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 6px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffd700;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffd700;
+            cursor: pointer;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .music-player {
+                width: 300px;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+
+        .bible-verse {
+            font-style: italic;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .action-prompt {
+            background: rgba(72, 219, 251, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 3px solid #48dbfb;
+            font-weight: 600;
+            color: #48dbfb;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+
+        .legend-box.lived {
+            background: rgba(255, 107, 107, 0.7);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .legend-box.remaining {
+            background: rgba(46, 213, 115, 0.4);
+            border-color: #2ed573;
+            box-shadow: 0 0 8px rgba(46, 213, 115, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-message {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #feca57;
+            font-style: italic;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(254, 202, 87, 0.3);
+        }
+
+        .reflection-section {
+            background: rgba(72, 219, 251, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 25px;
+            border: 2px solid rgba(72, 219, 251, 0.3);
+            text-align: center;
+        }
+
+        .reflection-question {
+            font-size: 1.4em;
+            color: #48dbfb;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Modal WhatsApp */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-header p {
+            color: #bbb;
+            font-size: 1.1em;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: none;
+            border: none;
+            padding: 0;
+            width: auto;
+            height: auto;
+        }
+
+        .close-modal:hover {
+            color: #ff6b6b;
+            transform: rotate(90deg);
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .country-code {
+            width: 80px;
+            padding: 15px;
+            font-size: 1.3em;
+            text-align: center;
+            border: 2px solid #25d366;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #25d366;
+            font-weight: 700;
+        }
+
+        .phone-input {
+            flex: 1;
+            padding: 15px;
+            font-size: 1.3em;
+            border: 2px solid #25d366;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .phone-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .phone-input:focus {
+            outline: none;
+            border-color: #128c7e;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .input-label {
+            display: block;
+            color: #25d366;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .send-whatsapp-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .send-whatsapp-btn:hover {
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .send-whatsapp-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(10, 1fr);
+                gap: 6px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .stat-number {
+                font-size: 2.2em;
+            }
+
+            .message {
+                font-size: 1.1em;
+                padding: 25px;
+            }
+
+            button {
+                padding: 15px 35px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flutuantes -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <h1>⏳ Tabela da Vida</h1>
+        <p class="subtitle">Cada quadrado representa um ano da sua vida.</p>
+        <p class="subtitle highlight">75 anos é a expectativa média de vida do brasileiro. Este é o seu tempo.</p>
+        
+        <!-- Citação inspiradora aleatória -->
+        <div style="text-align: center; margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px; border-left: 4px solid #48dbfb;">
+            <p id="randomQuote" style="font-style: italic; color: #48dbfb; font-size: 1.15em; line-height: 1.6;"></p>
+        </div>
+
+        <div class="input-section">
+            <div class="age-input">
+                <label for="age">Quantos anos você tem?</label>
+                <input type="number" id="age" min="0" max="75" placeholder="0">
+                <button onclick="calculateLife()">✨ Visualizar Minha Vida</button>
+            </div>
+        </div>
+
+        <div id="results" class="hidden">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="yearsLived">0</div>
+                    <div class="stat-label">Anos Vividos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="yearsLeft">75</div>
+                    <div class="stat-label">Anos Restantes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="percentage">0%</div>
+                    <div class="stat-label">Vida Vivida</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="heartbeats">0</div>
+                    <div class="stat-label">💓 Batimentos Restantes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="daysLeft">0</div>
+                    <div class="stat-label">📅 Dias Restantes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="weeksLeft">0</div>
+                    <div class="stat-label">📆 Semanas Restantes</div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box lived"></div>
+                    <span>Anos Vividos</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box remaining"></div>
+                    <span>Anos Restantes</span>
+                </div>
+            </div>
+
+            <div class="grid-container" id="lifeGrid"></div>
+
+            <div id="messageContainer"></div>
+
+            <div class="reflection-section">
+                <p class="reflection-question">💭 O que você faria se soubesse que este é o seu último dia?</p>
+                <p class="reflection-question">✍️ Escreva agora o nome de alguém que você ama e não fala há tempo.</p>
+                <button class="whatsapp-button" onclick="abrirModalWhatsApp()">💚 Mandar Mensagem Agora</button>
+            </div>
+        </div>
+
+        <!-- Seção do Oráculo -->
+        <div class="input-section" style="margin-top: 30px;">
+            <div style="text-align: center;">
+                <h2 style="font-size: 2em; margin-bottom: 10px; background: linear-gradient(45deg, #9b59b6, #3498db); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    🔮 Oráculo da Alma
+                </h2>
+                <p style="color: #bbb; margin-bottom: 20px;">Escolha um dos 3 cards abaixo e descubra a mensagem do universo para você</p>
+                <button class="oracle-button" onclick="revelarCards()">✨ Revelar os Cards</button>
+            </div>
+
+            <div id="oracleSection" class="hidden">
+                <p class="oracle-instructions">👆 Escolha um card e descubra sua mensagem...</p>
+                <div class="oracle-cards-container" id="oracleCards"></div>
+                <div style="text-align: center;">
+                    <button class="reset-cards-btn oracle-button" onclick="resetarCards()">🔄 Consultar Novamente</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-message">
+                "Você não está aqui por acaso. Cada batida do seu coração é um lembrete de que ainda há tempo para viver o que te faz vibrar."
+            </p>
+        </div>
+    </div>
+
+    <!-- Player de Música -->
+    <div class="music-player" id="musicPlayer">
+        <div class="player-header">
+            <div class="player-title">
+                🎵 Músicas para Relaxar
+            </div>
+            <button class="minimize-btn" onclick="togglePlayer()">−</button>
+        </div>
+        
+        <div class="player-content">
+            <div class="song-info">
+                <div class="song-name" id="songName">Harpa</div>
+                <div class="song-time">
+                    <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                </div>
+            </div>
+            
+            <div class="progress-bar" onclick="seekTo(event)">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="player-controls">
+                <button class="control-btn play-pause" onclick="togglePlay()" id="playPauseBtn">▶</button>
+            </div>
+            
+            <div class="volume-control">
+                <span class="volume-icon">🔊</span>
+                <input 
+                    type="range" 
+                    class="volume-slider" 
+                    min="0" 
+                    max="100" 
+                    value="30" 
+                    oninput="changeVolume(this.value)"
+                >
+            </div>
+            
+            <div style="text-align: center; color: rgba(255, 215, 0, 0.6); font-size: 0.75em; margin-top: 10px; padding: 8px; background: rgba(255, 215, 0, 0.05); border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.1);">
+                ♾️ Loop infinito | Relaxe e respire
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" loop></audio>
+
+    <!-- Modal WhatsApp -->
+    <div id="whatsappModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="fecharModalWhatsApp()">×</button>
+            <div class="modal-header">
+                <h2>💚 Reconecte-se Agora</h2>
+                <p>A vida é curta. Não deixe para amanhã.</p>
+            </div>
+            
+            <label class="input-label">📱 Digite o número do WhatsApp:</label>
+            <div class="phone-input-group">
+                <input type="text" class="country-code" value="+55" readonly>
+                <input 
+                    type="tel" 
+                    id="phoneNumber" 
+                    class="phone-input" 
+                    placeholder="11987654321"
+                    maxlength="13"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                >
+            </div>
+            
+            <p style="color: #bbb; font-size: 0.95em; margin-bottom: 20px; text-align: center;">
+                DDD + Número (apenas números)
+            </p>
+            
+            <button class="send-whatsapp-btn" onclick="enviarWhatsApp()">
+                ✨ Enviar Mensagem de Amor
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Criar partículas flutuantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Citações inspiradoras aleatórias
+        const quotes = [
+            "\"A vida não é medida pela quantidade de respirações que tomamos, mas pelos momentos que nos tiram o fôlego.\" — Maya Angelou",
+            "\"O tempo é muito lento para os que esperam, muito rápido para os que têm medo, muito longo para os que lamentam, muito curto para os que festejam. Mas, para os que amam, o tempo é eternidade.\" — William Shakespeare",
+            "\"Não conte os dias. Faça os dias contarem.\" — Muhammad Ali",
+            "\"A vida é 10% o que acontece com você e 90% como você reage a isso.\" — Charles R. Swindoll",
+            "\"No final, não são os anos de vida que importam. É a vida nos anos.\" — Abraham Lincoln",
+            "\"O passado já foi. O futuro ainda não chegou. Há apenas um momento para você viver: o agora.\" — Buda",
+            "\"A única maneira de fazer um ótimo trabalho é amar o que você faz.\" — Steve Jobs",
+            "\"Viva como se você fosse morrer amanhã. Aprenda como se você fosse viver para sempre.\" — Mahatma Gandhi",
+            "\"A felicidade não é algo pronto. Ela vem de suas próprias ações.\" — Dalai Lama",
+            "\"O maior risco é não correr risco algum. Num mundo que muda rapidamente, a única estratégia que garantidamente falha é não correr riscos.\" — Mark Zuckerberg",
+            "\"Sua vida não fica melhor por acaso. Fica melhor por mudança.\" — Jim Rohn",
+            "\"Não espere. Nunca haverá o momento certo.\" — Napoleon Hill",
+            "\"O que fazemos em vida ecoa na eternidade.\" — Marco Aurélio",
+            "\"A vida é realmente simples, mas insistimos em torná-la complicada.\" — Confúcio",
+            "\"Lembre-se de que o tempo é dinheiro.\" — Benjamin Franklin",
+            "\"A morte sorri para todos nós. Tudo o que podemos fazer é sorrir de volta.\" — Marco Aurélio",
+            "\"A vida sem desafios não vale a pena ser vivida.\" — Sócrates",
+            "\"O significado da vida é dar significado à vida.\" — Ken Hudgins",
+            "\"Aproveite cada momento. Você nunca sabe quando será o último.\" — Desconhecido",
+            "\"O tempo perdido nunca volta.\" — Provérbio Popular"
+        ];
+
+        function mostrarCitacaoAleatoria() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('randomQuote').textContent = quotes[randomIndex];
+        }
+
+        mostrarCitacaoAleatoria();
+
+        // Funções do Modal WhatsApp
+        function abrirModalWhatsApp() {
+            document.getElementById('whatsappModal').classList.add('show');
+            document.getElementById('phoneNumber').focus();
+        }
+
+        function fecharModalWhatsApp() {
+            document.getElementById('whatsappModal').classList.remove('show');
+            document.getElementById('phoneNumber').value = '';
+        }
+
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('whatsappModal');
+            if (event.target === modal) {
+                fecharModalWhatsApp();
+            }
+        }
+
+        // Enviar mensagem WhatsApp
+        function enviarWhatsApp() {
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            
+            // Validação
+            if (!phoneNumber) {
+                alert('❌ Por favor, digite o número do WhatsApp!');
+                return;
+            }
+
+            if (phoneNumber.length < 10) {
+                alert('❌ Número muito curto! Digite DDD + número completo.\nExemplo: 11987654321');
+                return;
+            }
+
+            const mensagens = [
+                "Hoje pensei em você... 💭\n\nA vida é curta demais para não dizer isso: você é importante para mim. ❤️\n\nQue tal conversarmos mais?",
+                
+                "Oi! 😊\n\nEu estava refletindo sobre a vida e seu nome veio à minha mente.\n\nSabe aquelas pessoas que fazem diferença? Você é uma delas. 💛\n\nVamos nos falar mais?",
+                
+                "Olá! 🌟\n\nQuantos dias já se passaram desde nossa última conversa?\n\nA vida é muito rápida... e eu não quero deixar passar mais tempo sem te dizer: você é especial para mim.\n\nPodemos conversar?",
+                
+                "Ei! 💫\n\nSabe aquele sentimento de saudade que bate do nada?\n\nEntão... tô sentindo agora. De você.\n\nBora colocar o papo em dia? ❤️",
+                
+                "Fala! 🙏\n\nEu vi algo hoje que me fez perceber: a gente deixa o tempo passar e esquece de falar com quem importa.\n\nVocê importa. Muito.\n\nVamos nos reconectar?"
+            ];
+
+            // Escolher mensagem aleatória
+            const mensagemAleatoria = mensagens[Math.floor(Math.random() * mensagens.length)];
+            const mensagem = encodeURIComponent(mensagemAleatoria);
+            
+            // Abrir WhatsApp
+            const fullNumber = '55' + phoneNumber;
+            window.open(`https://wa.me/${fullNumber}?text=${mensagem}`, '_blank');
+            
+            // Fechar modal
+            fecharModalWhatsApp();
+            
+            // Mensagem de confirmação
+            setTimeout(() => {
+                alert('💚 Perfeito! A vida é AGORA. Você acabou de fazer algo que pode mudar tudo. ✨');
+            }, 500);
+        }
+
+        // Enter para enviar no input
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phoneNumber');
+            if (phoneInput) {
+                phoneInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        enviarWhatsApp();
+                    }
+                });
+            }
+        });
+
+        // Função para abrir WhatsApp (manter compatibilidade)
+        function abrirWhatsApp() {
+            abrirModalWhatsApp();
+        }
+
+        // Função do Oráculo com Cards
+        let cardsGerados = [];
+        let cardVirado = false;
+
+        function revelarCards() {
+            const oracleSection = document.getElementById('oracleSection');
+            oracleSection.classList.remove('hidden');
+            
+            gerarCards();
+            
+            // Scroll suave até os cards
+            setTimeout(() => {
+                oracleSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        async function gerarCards() {
+            try {
+                const response = await fetch('oraculo.json');
+                const data = await response.json();
+                
+                // Gerar 3 números aleatórios únicos
+                const numerosDisponiveis = Array.from({length: 20}, (_, i) => i + 1);
+                cardsGerados = [];
+                
+                for (let i = 0; i < 3; i++) {
+                    const randomIndex = Math.floor(Math.random() * numerosDisponiveis.length);
+                    cardsGerados.push(numerosDisponiveis[randomIndex]);
+                    numerosDisponiveis.splice(randomIndex, 1);
+                }
+                
+                // Criar os cards
+                const container = document.getElementById('oracleCards');
+                container.innerHTML = '';
+                cardVirado = false;
+                
+                const symbols = ['🌟', '✨', '💫'];
+                
+                cardsGerados.forEach((num, index) => {
+                    const msg = data[num.toString()];
+                    
+                    const card = document.createElement('div');
+                    card.className = 'oracle-card';
+                    card.onclick = () => virarCard(index, num, msg);
+                    
+                    card.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-symbol">${symbols[index]}</div>
+                            </div>
+                            <div class="card-back">
+                                <h3>Mensagem ${num}</h3>
+                                <p style="margin-bottom: 10px; font-weight: 600; color: #ffd700;">
+                                    ${msg.reflexao}
+                                </p>
+                                <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.3); margin: 10px 0;">
+                                <p style="font-style: italic; font-size: 0.85em; color: #48dbfb;">
+                                    ${msg.biblia}
+                                </p>
+                                <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.3); margin: 10px 0;">
+                                <p style="background: rgba(72,219,251,0.2); padding: 10px; border-radius: 8px; font-weight: 600; font-size: 0.85em;">
+                                    ✨ ${msg.acao}
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                });
+                
+            } catch (error) {
+                console.error('Erro ao carregar oráculo:', error);
+                alert('Erro ao carregar mensagens do oráculo. Verifique se o arquivo oraculo.json existe.');
+            }
+        }
+
+        function virarCard(index, num, msg) {
+            if (cardVirado) return; // Só permite virar um card
+            
+            const cards = document.querySelectorAll('.oracle-card');
+            cards[index].classList.add('flipped');
+            cardVirado = true;
+            
+            // Desabilitar cliques nos outros cards
+            cards.forEach((card, i) => {
+                if (i !== index) {
+                    card.style.opacity = '0.5';
+                    card.style.cursor = 'not-allowed';
+                    card.onclick = null;
+                }
+            });
+            
+            // Mensagem de confirmação
+            setTimeout(() => {
+                const instructions = document.querySelector('.oracle-instructions');
+                instructions.innerHTML = '✨ Esta é sua mensagem! Reflita sobre ela profundamente...';
+                instructions.style.color = '#ffd700';
+            }, 800);
+        }
+
+        function resetarCards() {
+            cardVirado = false;
+            gerarCards();
+            
+            const instructions = document.querySelector('.oracle-instructions');
+            instructions.innerHTML = '👆 Escolha um card e descubra sua mensagem...';
+            instructions.style.color = '#9b59b6';
+        }
+
+        // Função antiga do oráculo (manter compatibilidade)
+        async function abrirOraculo() {
+            revelarCards();
+        }
+
+        function getAgeRange(age) {
+            if (age <= 10) return "0-10";
+            if (age <= 20) return "11-20";
+            if (age <= 30) return "21-30";
+            if (age <= 40) return "31-40";
+            if (age <= 50) return "41-50";
+            if (age <= 60) return "51-60";
+            return "61-75";
+        }
+
+        async function calculateLife() {
+            const age = parseInt(document.getElementById('age').value);
+            
+            if (isNaN(age) || age < 0 || age > 75) {
+                alert('Por favor, insira uma idade válida entre 0 e 75 anos.');
+                return;
+            }
+
+            const yearsLeft = 75 - age;
+            const percentage = ((age / 75) * 100).toFixed(1);
+            
+            // Cálculos extras
+            const daysLeft = yearsLeft * 365;
+            const weeksLeft = Math.floor(yearsLeft * 52);
+            // Batimentos cardíacos (média: 70 bpm * 60 min * 24 horas * 365 dias)
+            const heartbeatsPerYear = 70 * 60 * 24 * 365;
+            const heartbeatsLeft = Math.floor(heartbeatsPerYear * yearsLeft);
+
+            document.getElementById('yearsLived').textContent = age;
+            document.getElementById('yearsLeft').textContent = yearsLeft;
+            document.getElementById('percentage').textContent = percentage + '%';
+            
+            // Animar números grandes com formatação
+            animateNumber('heartbeats', heartbeatsLeft, true);
+            animateNumber('daysLeft', daysLeft, false);
+            animateNumber('weeksLeft', weeksLeft, false);
+
+            // Criar grid de anos
+            const grid = document.getElementById('lifeGrid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 75; i++) {
+                const box = document.createElement('div');
+                box.className = 'year-box';
+                box.title = `Ano ${i}`;
+                
+                if (i <= age) {
+                    box.classList.add('lived');
+                } else {
+                    box.classList.add('remaining');
+                }
+                
+                grid.appendChild(box);
+            }
+
+            // Carregar mensagens do JSON
+            try {
+                const response = await fetch('mensagens_idade.json');
+                const messages = await response.json();
+                
+                const range = getAgeRange(age);
+                const message = messages[range];
+                
+                const messageContainer = document.getElementById('messageContainer');
+                messageContainer.innerHTML = `
+                    <div class="message" style="border-left-color: ${message.cor};">
+                        ${message.texto}
+                    </div>
+                    <div style="text-align: center; margin-top: 20px; padding: 25px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.3);">
+                        <p style="font-size: 1.4em; color: #ffd700; font-weight: 700; margin-bottom: 10px;">
+                            ⏰ Seu Tempo em Números
+                        </p>
+                        <p style="color: #fff; font-size: 1.1em; line-height: 1.8;">
+                            Você tem aproximadamente <strong style="color: #ff6b6b;">${daysLeft.toLocaleString()}</strong> dias,
+                            <strong style="color: #feca57;">${weeksLeft.toLocaleString()}</strong> semanas, ou
+                            <strong style="color: #2ed573;">${(heartbeatsLeft / 1000000000).toFixed(2)} bilhões</strong> de batimentos cardíacos restantes.
+                            <br><br>
+                            <em style="color: #48dbfb;">Cada segundo é precioso. Use-os com sabedoria. 💎</em>
+                        </p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Erro ao carregar mensagens:', error);
+                // Fallback para mensagens incorporadas
+                const fallbackMessages = {
+                    "0-10": {
+                        texto: "🌱 Você está apenas começando sua jornada. O mundo está cheio de possibilidades infinitas.",
+                        cor: "#4834df"
+                    },
+                    "11-20": {
+                        texto: "⚡ A juventude é sua aliada mais poderosa. Você tem energia, tempo e o mundo aos seus pés.",
+                        cor: "#2ed573"
+                    },
+                    "21-30": {
+                        texto: "🎯 Estes são anos cruciais, decisivos. As escolhas que você faz AGORA ecoarão por décadas.",
+                        cor: "#feca57"
+                    },
+                    "31-40": {
+                        texto: "⏰ Você está na primeira metade da vida. Mas olhe bem: METADE JÁ SE FOI.",
+                        cor: "#ff6b6b"
+                    },
+                    "41-50": {
+                        texto: "⚠️ MAIS DA METADE JÁ SE FOI. Pare de adiar. FAÇA HOJE.",
+                        cor: "#ff4757"
+                    },
+                    "51-60": {
+                        texto: "🚨 ALERTA VERMELHO: Dois terços da sua vida já passaram.",
+                        cor: "#ff3838"
+                    },
+                    "61-75": {
+                        texto: "💔 O TEMPO ESTÁ SE ESGOTANDO. É AGORA ou NUNCA.",
+                        cor: "#c23616"
+                    }
+                };
+
+                const range = getAgeRange(age);
+                const message = fallbackMessages[range];
+                
+                const messageContainer = document.getElementById('messageContainer');
+                messageContainer.innerHTML = `
+                    <div class="message" style="border-left-color: ${message.cor};">
+                        ${message.texto}
+                    </div>
+                `;
+            }
+
+            document.getElementById('results').classList.remove('hidden');
+            
+            // Scroll automático para a mensagem (não para o topo dos resultados)
+            setTimeout(() => {
+                const messageContainer = document.getElementById('messageContainer');
+                messageContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        // Função para animar números grandes
+        function animateNumber(elementId, targetValue, formatLarge) {
+            const element = document.getElementById(elementId);
+            const duration = 1500;
+            const steps = 60;
+            const increment = targetValue / steps;
+            let currentValue = 0;
+            let step = 0;
+
+            const timer = setInterval(() => {
+                step++;
+                currentValue += increment;
+                
+                if (step >= steps) {
+                    currentValue = targetValue;
+                    clearInterval(timer);
+                }
+                
+                if (formatLarge && currentValue > 1000000) {
+                    element.textContent = (currentValue / 1000000000).toFixed(2) + 'B';
+                } else if (currentValue > 1000) {
+                    element.textContent = Math.floor(currentValue).toLocaleString();
+                } else {
+                    element.textContent = Math.floor(currentValue);
+                }
+            }, duration / steps);
+        }
+
+        // Enter no input
+        document.getElementById('age').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateLife();
+            }
+        });
+
+        // ==================== MÚSICAS RELAXANTES (LOOP INFINITO) ====================
+        
+        // Lista de músicas relaxantes (adicione arquivos .mp3 na pasta musicas/)
+        // O sistema carrega automaticamente e toca em loop infinito
+        const musicasRelaxantes = [
+            'harpa.mp3'
+            // Adicione mais arquivos aqui, ex: 'calmaria.mp3', 'paz.mp3'
+        ];
+
+        let currentMusicIndex = 0;
+        let isPlaying = false;
+        const audio = document.getElementById('audioPlayer');
+        
+        // Função para carregar música
+        function loadMusic() {
+            const fileName = musicasRelaxantes[currentMusicIndex];
+            const musicName = fileName.replace('.mp3', '').replace(/-|_/g, ' ');
+            
+            audio.src = 'musicas/' + fileName;
+            document.getElementById('songName').textContent = musicName.charAt(0).toUpperCase() + musicName.slice(1);
+        }
+        
+        // Configurações iniciais
+        audio.volume = 0.3; // 30% de volume inicial (mais suave para relaxar)
+        loadMusic();
+
+        // Play/Pause
+        function togglePlay() {
+            const btn = document.getElementById('playPauseBtn');
+            if (isPlaying) {
+                audio.pause();
+                btn.textContent = '▶';
+                isPlaying = false;
+            } else {
+                audio.play();
+                btn.textContent = '⏸';
+                isPlaying = true;
+            }
+        }
+
+        // Volume
+        function changeVolume(value) {
+            audio.volume = value / 100;
+        }
+
+        // Barra de progresso
+        audio.addEventListener('timeupdate', function() {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
+            document.getElementById('duration').textContent = formatTime(audio.duration);
+        });
+
+        // Clicar na barra de progresso
+        function seekTo(event) {
+            const progressBar = event.currentTarget;
+            const clickX = event.offsetX;
+            const width = progressBar.offsetWidth;
+            const percentage = clickX / width;
+            audio.currentTime = percentage * audio.duration;
+        }
+
+        // Formatar tempo
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
+
+        // Minimizar/Maximizar player
+        function togglePlayer() {
+            const player = document.getElementById('musicPlayer');
+            const btn = document.querySelector('.minimize-btn');
+            player.classList.toggle('minimized');
+            
+            if (player.classList.contains('minimized')) {
+                btn.textContent = '🎵';
+            } else {
+                btn.textContent = '−';
+            }
+        }
+
+        // Clicar no player minimizado para abrir
+        document.getElementById('musicPlayer').addEventListener('click', function(e) {
+            if (this.classList.contains('minimized')) {
+                togglePlayer();
+            }
+        });
+
+        // ==================== FIM DAS MÚSICAS RELAXANTES ====================
+    </script>
+</body>
+</html>

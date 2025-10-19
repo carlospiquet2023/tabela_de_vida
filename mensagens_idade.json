@@ -1,0 +1,30 @@
+{
+  "0-10": {
+    "texto": "🌱 Você está apenas começando sua jornada. O mundo está cheio de possibilidades infinitas. Aprenda, explore, sonhe grande. Estes são os anos de formar quem você será. Cada brincadeira, cada descoberta, cada sorriso está plantando as sementes do futuro.",
+    "cor": "#4834df"
+  },
+  "11-20": {
+    "texto": "⚡ A juventude é sua aliada mais poderosa. Você tem energia, tempo e o mundo aos seus pés. Não tenha medo de errar — cada erro é uma lição disfarçada de presente. Arrisque-se enquanto o custo é baixo. Ame intensamente. Experimente tudo. Este é o momento de descobrir quem você realmente é.",
+    "cor": "#2ed573"
+  },
+  "21-30": {
+    "texto": "🎯 Estes são anos cruciais, decisivos. As escolhas que você faz AGORA ecoarão por décadas. Invista em você mesmo sem medo. Construa relacionamentos verdadeiros. Seu futuro está sendo moldado neste exato momento. A expectativa de vida do brasileiro é 75 anos — você tem tempo, mas não eternamente. Use-o com sabedoria.",
+    "cor": "#feca57"
+  },
+  "31-40": {
+    "texto": "⏰ Você está na primeira metade da vida. Mas olhe bem: METADE JÁ SE FOI. A expectativa média do brasileiro é 75 anos. Você está fazendo o que ama? Está com quem ama? Se a resposta for não, MUDE AGORA. Ainda há tempo, mas ele está escorrendo entre seus dedos como areia. Não acorde aos 60 com arrependimentos.",
+    "cor": "#ff6b6b"
+  },
+  "41-50": {
+    "texto": "⚠️ MAIS DA METADE JÁ SE FOI. A média de vida no Brasil é 75 anos. Olhe para trás: quantos sonhos ficaram pelo caminho? Quantos 'algum dia' nunca aconteceram? Pare de adiar. Aquela viagem, aquele telefonema, aquele perdão, aquele 'eu te amo' — FAÇA HOJE. O tempo não espera, não negocia, não volta atrás.",
+    "cor": "#ff4757"
+  },
+  "51-60": {
+    "texto": "🚨 ALERTA VERMELHO: Dois terços da sua vida já passaram. Com a expectativa média de 75 anos, você cruzou a linha do 'muito vivido'. Agora a pergunta não é mais 'o que eu vou fazer' — é 'o que eu AINDA posso fazer'. Sua família sabe o quanto você os ama? Seus dias têm propósito real? Cada manhã que você acorda é uma dádiva que NÃO é garantida. Viva como se cada dia importasse. Porque importa.",
+    "cor": "#ff3838"
+  },
+  "61-75": {
+    "texto": "💔 O TEMPO ESTÁ SE ESGOTANDO. Estatisticamente, você já ultrapassou 80% da expectativa de vida brasileira (75 anos). Não existe mais 'algum dia'. É AGORA ou NUNCA. Abrace seus netos com força. Diga 'eu te amo' para quem importa. Perdoe quem te magoou. Sorria para o sol. Chore se precisar. SINTA. Viva cada segundo como se fosse o último, porque um dia SERÁ. E que esse dia te encontre em paz, sabendo que você viveu de verdade.",
+    "cor": "#c23616"
+  }
+}
