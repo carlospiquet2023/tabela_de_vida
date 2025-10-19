@@ -419,39 +419,28 @@
             padding: 12px 30px;
         }
 
-        /* Player de Música - Superior Direito Discreto */
+        /* Player de Música - Fixo no Cabeçalho */
         .music-player {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 280px;
-            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(30, 30, 60, 0.95));
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.98), rgba(48, 43, 99, 0.98));
             backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            padding: 12px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             z-index: 10000;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         .music-player.minimized {
-            width: 50px;
-            height: 50px;
-            padding: 0;
-            border-radius: 50%;
-            cursor: pointer;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
-            border: none;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .music-player.minimized:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+            padding: 8px 20px;
         }
 
         .music-player.minimized .player-content {
@@ -459,26 +448,33 @@
         }
 
         .music-player.minimized .minimize-btn {
-            font-size: 1.8em;
-            margin: 0;
-            padding: 0;
+            font-size: 1.2em;
         }
 
         .player-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            gap: 15px;
+            min-width: 200px;
         }
 
         .player-title {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: #ffd700;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .player-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
         }
 
         .minimize-btn {
@@ -486,7 +482,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             cursor: pointer;
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 8px;
             font-size: 0.9em;
             transition: all 0.3s;
@@ -500,30 +496,34 @@
         }
 
         .song-info {
-            text-align: center;
-            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 150px;
         }
 
         .song-name {
-            font-size: 0.95em;
+            font-size: 0.9em;
             color: #fff;
             font-weight: 600;
-            margin-bottom: 5px;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .song-time {
-            font-size: 0.75em;
+            font-size: 0.7em;
             color: rgba(255, 255, 255, 0.5);
             font-weight: 400;
+            white-space: nowrap;
         }
 
         .progress-bar {
-            width: 100%;
-            height: 5px;
+            flex: 1;
+            max-width: 400px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            margin-bottom: 12px;
             cursor: pointer;
             position: relative;
         }
@@ -538,24 +538,24 @@
 
         .player-controls {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-bottom: 12px;
+            gap: 10px;
         }
 
         .control-btn {
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #fff;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2em;
+            font-size: 1.1em;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .control-btn:hover {
@@ -564,17 +564,17 @@
         }
 
         .control-btn.play-pause {
-            width: 55px;
-            height: 55px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #ffd700, #ffa500);
-            font-size: 1.5em;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            font-size: 1.3em;
+            box-shadow: 0 3px 12px rgba(255, 215, 0, 0.3);
             border: 2px solid rgba(255, 255, 255, 0.1);
         }
         
         .control-btn.play-pause:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
         }
         
         .control-btn.play-pause:active {
@@ -584,17 +584,19 @@
         .volume-control {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            min-width: 120px;
         }
 
         .volume-icon {
             color: #ffd700;
-            font-size: 1.2em;
+            font-size: 1em;
+            flex-shrink: 0;
         }
 
         .volume-slider {
-            flex: 1;
-            height: 6px;
+            width: 80px;
+            height: 5px;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.1);
             outline: none;
@@ -619,11 +621,45 @@
             border: none;
         }
 
+        /* Espaçamento para o player fixo no topo */
+        .container {
+            margin-top: 80px;
+        }
+
         @media (max-width: 768px) {
             .music-player {
-                width: 300px;
-                right: 10px;
-                bottom: 10px;
+                flex-wrap: wrap;
+                padding: 10px 15px;
+                gap: 10px;
+            }
+
+            .player-header {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .player-content {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .progress-bar {
+                order: -1;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .song-info {
+                min-width: auto;
+            }
+
+            .volume-control {
+                min-width: auto;
+            }
+
+            .container {
+                margin-top: 140px;
             }
         }
 
@@ -1124,10 +1160,6 @@
                     value="30" 
                     oninput="changeVolume(this.value)"
                 >
-            </div>
-            
-            <div style="text-align: center; color: rgba(255, 215, 0, 0.6); font-size: 0.75em; margin-top: 10px; padding: 8px; background: rgba(255, 215, 0, 0.05); border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.1);">
-                ♾️ Loop infinito | Relaxe e respire
             </div>
         </div>
     </div>
@@ -1657,15 +1689,15 @@
             player.classList.toggle('minimized');
             
             if (player.classList.contains('minimized')) {
-                btn.textContent = '🎵';
+                btn.textContent = '▼';
             } else {
-                btn.textContent = '−';
+                btn.textContent = '▲';
             }
         }
 
-        // Clicar no player minimizado para abrir
+        // Clicar no título quando minimizado para abrir
         document.getElementById('musicPlayer').addEventListener('click', function(e) {
-            if (this.classList.contains('minimized')) {
+            if (this.classList.contains('minimized') && e.target.classList.contains('player-title')) {
                 togglePlayer();
             }
         });
