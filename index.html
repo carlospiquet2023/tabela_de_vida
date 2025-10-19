@@ -467,6 +467,25 @@
             gap: 8px;
             letter-spacing: 0.5px;
             white-space: nowrap;
+            flex: 1;
+        }
+
+        .game-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+
+        .game-btn:hover {
+            background: linear-gradient(135deg, #ee5a6f, #ff6b6b);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
         }
 
         .player-content {
@@ -636,6 +655,18 @@
             .player-header {
                 width: 100%;
                 justify-content: space-between;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .player-title {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .game-btn {
+                padding: 5px 10px;
+                font-size: 1em;
             }
 
             .player-content {
@@ -1029,6 +1060,143 @@
                 font-size: 1.05em;
             }
         }
+
+        /* Modal do Jogo Relaxante */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-modal.show {
+            display: flex;
+        }
+
+        .game-modal-content {
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.98), rgba(48, 43, 99, 0.98));
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            animation: gameSlideIn 0.4s ease;
+        }
+
+        @keyframes gameSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .game-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-close-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .breathing-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #48dbfb, #0abde3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(72, 219, 251, 0.6);
+            animation: breathe 16s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(72, 219, 251, 0.6);
+            }
+            25% {
+                transform: scale(1.5);
+                box-shadow: 0 0 80px rgba(72, 219, 251, 0.8);
+            }
+            50% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(72, 219, 251, 0.6);
+            }
+            75% {
+                transform: scale(0.8);
+                box-shadow: 0 0 20px rgba(72, 219, 251, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(72, 219, 251, 0.6);
+            }
+        }
+
+        .breathing-text {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            animation: breatheText 16s infinite;
+        }
+
+        @keyframes breatheText {
+            0% { content: "Inspire"; }
+            25% { content: "Segure"; }
+            50% { content: "Expire"; }
+            75% { content: "Segure"; }
+        }
+
+        @media (max-width: 480px) {
+            .memory-grid {
+                gap: 8px;
+                max-width: 350px;
+            }
+
+            .memory-card-front {
+                font-size: 1.2em;
+            }
+
+            .memory-card-back {
+                font-size: 1.8em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1135,7 +1303,10 @@
             <div class="player-title">
                 🎵 Músicas para Relaxar
             </div>
-            <button class="minimize-btn" onclick="togglePlayer()">−</button>
+            <button class="game-btn" onclick="openGameModal()" title="Respiração Guiada">🧘</button>
+            <button class="game-btn" onclick="window.open('jardim-zen.html', '_blank')" title="Jardim Zen Digital" style="background: linear-gradient(135deg, #8B5A2B, #D2691E);">🌿</button>
+            <button class="game-btn" onclick="window.open('mandala.html', '_blank')" title="Mandala Interativa" style="background: linear-gradient(135deg, #667eea, #764ba2);">🌸</button>
+            <button class="minimize-btn" onclick="togglePlayer()">▲</button>
         </div>
         
         <div class="player-content">
@@ -1151,7 +1322,9 @@
             </div>
             
             <div class="player-controls">
+                <button class="control-btn" onclick="previousSong()" title="Música Anterior">⏮</button>
                 <button class="control-btn play-pause" onclick="togglePlay()" id="playPauseBtn">▶</button>
+                <button class="control-btn" onclick="nextSong()" title="Próxima Música">⏭</button>
             </div>
             
             <div class="volume-control">
@@ -1168,7 +1341,71 @@
         </div>
     </div>
 
-    <audio id="audioPlayer" loop></audio>
+    <audio id="audioPlayer"></audio>
+
+    <!-- Modal do Jogo Relaxante -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-modal-content">
+            <button class="game-close-btn" onclick="closeGameModal()">✕</button>
+            
+            <h2 style="text-align: center; color: #ffd700; margin-bottom: 20px;">
+                🧘 Respiração Guiada
+            </h2>
+            
+            <p style="text-align: center; color: #fff; margin-bottom: 30px; font-size: 1.1em;">
+                Siga o círculo e respire profundamente
+            </p>
+            
+            <div class="breathing-container">
+                <div class="breathing-circle" id="breathingCircle">
+                    <div class="breathing-text" id="breathingText">Inspire</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="color: #48dbfb; font-size: 0.95em; line-height: 1.6;">
+                    💙 Inspire profundamente pelo nariz (4s)<br>
+                    ⏸️ Segure a respiração (4s)<br>
+                    💨 Expire lentamente pela boca (4s)<br>
+                    ⏸️ Segure com pulmões vazios (4s)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Jogo da Memória da Calma -->
+    <div class="game-modal" id="memoryGameModal">
+        <div class="game-modal-content" style="max-width: 700px;">
+            <button class="game-close-btn" onclick="closeMemoryGameModal()">✕</button>
+            
+            <h2 style="text-align: center; color: #48dbfb; margin-bottom: 15px;">
+                � Jogo da Memória da Calma
+            </h2>
+            
+            <p style="text-align: center; color: #fff; margin-bottom: 20px; font-size: 0.95em;">
+                Encontre os pares e relaxe com mensagens inspiradoras
+            </p>
+            
+            <div class="memory-stats" style="text-align: center; margin-bottom: 20px; color: #48dbfb; font-size: 0.9em;">
+                <span>🎯 Pares encontrados: <strong id="pairsFound">0</strong>/8</span>
+                <span style="margin-left: 20px;">⏱️ Jogadas: <strong id="moves">0</strong></span>
+            </div>
+            
+            <div class="memory-grid" id="memoryGrid">
+                <!-- Cartas serão geradas dinamicamente -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="resetMemoryGame()" style="background: linear-gradient(135deg, #48dbfb, #0abde3); border: none; padding: 12px 30px; border-radius: 10px; color: #fff; font-weight: 700; cursor: pointer; font-size: 1em; transition: all 0.3s; box-shadow: 0 4px 15px rgba(72, 219, 251, 0.4);">
+                    🔄 Novo Jogo
+                </button>
+            </div>
+            
+            <p id="motivationalMessage" style="text-align: center; color: #ffd700; font-size: 1em; margin-top: 15px; min-height: 24px; font-weight: 600;">
+                
+            </p>
+        </div>
+    </div>
 
     <!-- Modal WhatsApp -->
     <div id="whatsappModal" class="modal">
@@ -1203,24 +1440,9 @@
     </div>
 
     <script>
-        // Criar partículas flutuantes
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = Math.random() * 4 + 2 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        createParticles();
-
-        // Citações inspiradoras aleatórias
+        // ==================== CONSTANTES E VARIÁVEIS GLOBAIS ====================
+        
+        // Citações inspiradoras
         const quotes = [
             "\"A vida não é medida pela quantidade de respirações que tomamos, mas pelos momentos que nos tiram o fôlego.\" — Maya Angelou",
             "\"O tempo é muito lento para os que esperam, muito rápido para os que têm medo, muito longo para os que lamentam, muito curto para os que festejam. Mas, para os que amam, o tempo é eternidade.\" — William Shakespeare",
@@ -1244,31 +1466,172 @@
             "\"O tempo perdido nunca volta.\" — Provérbio Popular"
         ];
 
-        function mostrarCitacaoAleatoria() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            document.getElementById('randomQuote').textContent = quotes[randomIndex];
+        // Símbolos do jogo da memória (removidos)
+        // const memorySymbols = ['🌸', '🌿', '🍃', '🌊', '🌤️', '☁️', '🦋', '🌺'];
+        
+        // Mensagens motivacionais do jogo (removidas)
+        /*
+            "✨ Perfeito! Continue assim!",
+            "🌟 Excelente memória!",
+            "💫 Você está focado!",
+            "🎯 Ótimo trabalho!",
+            "🌈 Maravilhoso!",
+            "💎 Sua mente está brilhante!",
+            "🌻 Continue nessa energia!",
+            "🎨 Que concentração!"
+        */
+
+        // Lista de músicas relaxantes
+        const musicasRelaxantes = [
+            'harpa.mp3',
+            'piano.mp3'
+            // Adicione mais arquivos .mp3 na pasta musicas/
+        ];
+
+        // Variáveis do player de música
+        let currentMusicIndex = 0;
+        let isPlaying = false;
+        const audio = document.getElementById('audioPlayer');
+
+        // Variáveis do jogo do oráculo
+        let cardsGerados = [];
+        let cardVirado = false;
+
+        // Variáveis do jogo da memória (removidas)
+        /*
+        let cartas = [];
+        let primeiraCarta = null;
+        let segundaCarta = null;
+        let bloquearJogo = false;
+        let paresEncontrados = 0;
+        let totalPares = 8;
+        let moves = 0;
+        */
+
+        // Variáveis da respiração guiada
+        let breathingInterval;
+
+        // ==================== FUNÇÕES UTILITÁRIAS ====================
+
+        // Criar partículas flutuantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
         }
 
-        mostrarCitacaoAleatoria();
+        // ==================== INICIALIZAÇÕES ====================
+        
+        // Inicializar componentes quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Criar partículas de fundo
+            createParticles();
+            
+            // Mostrar citação aleatória
+            mostrarCitacaoAleatoria();
+            
+            // Configurar player de música
+            if (audio) {
+                audio.volume = 0.3; // 30% de volume inicial
+                loadMusic(0);
+            }
+        });
 
-        // Funções do Modal WhatsApp
+        // ==================== SISTEMA UNIFICADO DE MODAIS ====================
+        
+        function toggleModal(modalId, action, options = {}) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            
+            if (action === 'open') {
+                modal.classList.add('show');
+                
+                // Executar ações específicas baseadas no modal
+                if (modalId === 'whatsappModal' && options.focusInput) {
+                    const phoneInput = document.getElementById('phoneNumber');
+                    if (phoneInput) phoneInput.focus();
+                } else if (modalId === 'gameModal' && options.startAnimation) {
+                    startBreathingAnimation();
+                }
+            } else if (action === 'close') {
+                modal.classList.remove('show');
+                
+                // Limpeza específica baseada no modal
+                if (modalId === 'whatsappModal') {
+                    const phoneInput = document.getElementById('phoneNumber');
+                    if (phoneInput) phoneInput.value = '';
+                } else if (modalId === 'gameModal') {
+                    stopBreathingAnimation();
+                }
+            }
+        }
+
+        // Funções mantidas para compatibilidade
         function abrirModalWhatsApp() {
-            document.getElementById('whatsappModal').classList.add('show');
-            document.getElementById('phoneNumber').focus();
+            toggleModal('whatsappModal', 'open', { focusInput: true });
         }
 
         function fecharModalWhatsApp() {
-            document.getElementById('whatsappModal').classList.remove('show');
-            document.getElementById('phoneNumber').value = '';
+            toggleModal('whatsappModal', 'close');
         }
 
-        // Fechar modal ao clicar fora
-        window.onclick = function(event) {
-            const modal = document.getElementById('whatsappModal');
-            if (event.target === modal) {
-                fecharModalWhatsApp();
-            }
+        function openGameModal() {
+            toggleModal('gameModal', 'open', { startAnimation: true });
         }
+
+        function closeGameModal() {
+            toggleModal('gameModal', 'close');
+        }
+
+        // Função para abrir WhatsApp (manter compatibilidade)
+        function abrirWhatsApp() {
+            abrirModalWhatsApp();
+        }
+
+        // ==================== EVENT LISTENERS UNIFICADOS ====================
+        
+        // Fechar modais ao clicar fora - Sistema unificado
+        window.onclick = function(event) {
+            const modals = ['whatsappModal', 'gameModal'];
+            
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (modal && event.target === modal) {
+                    toggleModal(modalId, 'close');
+                }
+            });
+        }
+
+        // Event listeners para teclas Enter
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enter no input de idade
+            const ageInput = document.getElementById('age');
+            if (ageInput) {
+                ageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateLife();
+                    }
+                });
+            }
+
+            // Enter no input de telefone do WhatsApp
+            const phoneInput = document.getElementById('phoneNumber');
+            if (phoneInput) {
+                phoneInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        enviarWhatsApp();
+                    }
+                });
+            }
+        });
 
         // Enviar mensagem WhatsApp
         function enviarWhatsApp() {
@@ -1314,27 +1677,7 @@
             }, 500);
         }
 
-        // Enter para enviar no input
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneInput = document.getElementById('phoneNumber');
-            if (phoneInput) {
-                phoneInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        enviarWhatsApp();
-                    }
-                });
-            }
-        });
-
-        // Função para abrir WhatsApp (manter compatibilidade)
-        function abrirWhatsApp() {
-            abrirModalWhatsApp();
-        }
-
         // Função do Oráculo com Cards
-        let cardsGerados = [];
-        let cardVirado = false;
-
         function revelarCards() {
             const oracleSection = document.getElementById('oracleSection');
             oracleSection.classList.remove('hidden');
@@ -1445,6 +1788,58 @@
             revelarCards();
         }
 
+        // ==================== FUNÇÕES AUXILIARES ====================
+        
+        function createTimeStatsHTML(daysLeft, weeksLeft, heartbeatsLeft) {
+            return `
+                <div style="text-align: center; margin-top: 20px; padding: 25px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.3);">
+                    <p style="font-size: 1.4em; color: #ffd700; font-weight: 700; margin-bottom: 10px;">
+                        ⏰ Seu Tempo em Números
+                    </p>
+                    <p style="color: #fff; font-size: 1.1em; line-height: 1.8;">
+                        Você tem aproximadamente <strong style="color: #ff6b6b;">${daysLeft.toLocaleString()}</strong> dias,
+                        <strong style="color: #feca57;">${weeksLeft.toLocaleString()}</strong> semanas, ou
+                        <strong style="color: #2ed573;">${(heartbeatsLeft / 1000000000).toFixed(2)} bilhões</strong> de batimentos cardíacos restantes.
+                        <br><br>
+                        <em style="color: #48dbfb;">Cada segundo é precioso. Use-os com sabedoria. 💎</em>
+                    </p>
+                </div>
+            `;
+        }
+
+        function getFallbackMessages() {
+            return {
+                "0-10": {
+                    texto: "🌱 Você está apenas começando sua jornada. O mundo está cheio de possibilidades infinitas.",
+                    cor: "#4834df"
+                },
+                "11-20": {
+                    texto: "⚡ A juventude é sua aliada mais poderosa. Você tem energia, tempo e o mundo aos seus pés.",
+                    cor: "#2ed573"
+                },
+                "21-30": {
+                    texto: "🎯 Estes são anos cruciais, decisivos. As escolhas que você faz AGORA ecoarão por décadas.",
+                    cor: "#feca57"
+                },
+                "31-40": {
+                    texto: "⏰ Você está na primeira metade da vida. Mas olhe bem: METADE JÁ SE FOI.",
+                    cor: "#ff6b6b"
+                },
+                "41-50": {
+                    texto: "⚠️ MAIS DA METADE JÁ SE FOI. Pare de adiar. FAÇA HOJE.",
+                    cor: "#ff4757"
+                },
+                "51-60": {
+                    texto: "🚨 ALERTA VERMELHO: Dois terços da sua vida já passaram.",
+                    cor: "#ff3838"
+                },
+                "61-75": {
+                    texto: "� Esta é a época dourada da sabedoria e da plenitude. Continue criando memórias lindas!",
+                    cor: "#c23616"
+                }
+            };
+        }
+
         function getAgeRange(age) {
             if (age <= 10) return "0-10";
             if (age <= 20) return "11-20";
@@ -1453,6 +1848,34 @@
             if (age <= 50) return "41-50";
             if (age <= 60) return "51-60";
             return "61-75";
+        }
+
+        async function loadAgeMessage(age, daysLeft, weeksLeft, heartbeatsLeft) {
+            const range = getAgeRange(age);
+            
+            try {
+                const response = await fetch('mensagens_idade.json');
+                const messages = await response.json();
+                const message = messages[range];
+                
+                return `
+                    <div class="message" style="border-left-color: ${message.cor};">
+                        ${message.texto}
+                    </div>
+                    ${createTimeStatsHTML(daysLeft, weeksLeft, heartbeatsLeft)}
+                `;
+            } catch (error) {
+                console.error('Erro ao carregar mensagens:', error);
+                const fallbackMessages = getFallbackMessages();
+                const message = fallbackMessages[range];
+                
+                return `
+                    <div class="message" style="border-left-color: ${message.cor};">
+                        ${message.texto}
+                    </div>
+                    ${createTimeStatsHTML(daysLeft, weeksLeft, heartbeatsLeft)}
+                `;
+            }
         }
 
         async function calculateLife() {
@@ -1500,76 +1923,9 @@
                 grid.appendChild(box);
             }
 
-            // Carregar mensagens do JSON
-            try {
-                const response = await fetch('mensagens_idade.json');
-                const messages = await response.json();
-                
-                const range = getAgeRange(age);
-                const message = messages[range];
-                
-                const messageContainer = document.getElementById('messageContainer');
-                messageContainer.innerHTML = `
-                    <div class="message" style="border-left-color: ${message.cor};">
-                        ${message.texto}
-                    </div>
-                    <div style="text-align: center; margin-top: 20px; padding: 25px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 2px solid rgba(255,215,0,0.3);">
-                        <p style="font-size: 1.4em; color: #ffd700; font-weight: 700; margin-bottom: 10px;">
-                            ⏰ Seu Tempo em Números
-                        </p>
-                        <p style="color: #fff; font-size: 1.1em; line-height: 1.8;">
-                            Você tem aproximadamente <strong style="color: #ff6b6b;">${daysLeft.toLocaleString()}</strong> dias,
-                            <strong style="color: #feca57;">${weeksLeft.toLocaleString()}</strong> semanas, ou
-                            <strong style="color: #2ed573;">${(heartbeatsLeft / 1000000000).toFixed(2)} bilhões</strong> de batimentos cardíacos restantes.
-                            <br><br>
-                            <em style="color: #48dbfb;">Cada segundo é precioso. Use-os com sabedoria. 💎</em>
-                        </p>
-                    </div>
-                `;
-            } catch (error) {
-                console.error('Erro ao carregar mensagens:', error);
-                // Fallback para mensagens incorporadas
-                const fallbackMessages = {
-                    "0-10": {
-                        texto: "🌱 Você está apenas começando sua jornada. O mundo está cheio de possibilidades infinitas.",
-                        cor: "#4834df"
-                    },
-                    "11-20": {
-                        texto: "⚡ A juventude é sua aliada mais poderosa. Você tem energia, tempo e o mundo aos seus pés.",
-                        cor: "#2ed573"
-                    },
-                    "21-30": {
-                        texto: "🎯 Estes são anos cruciais, decisivos. As escolhas que você faz AGORA ecoarão por décadas.",
-                        cor: "#feca57"
-                    },
-                    "31-40": {
-                        texto: "⏰ Você está na primeira metade da vida. Mas olhe bem: METADE JÁ SE FOI.",
-                        cor: "#ff6b6b"
-                    },
-                    "41-50": {
-                        texto: "⚠️ MAIS DA METADE JÁ SE FOI. Pare de adiar. FAÇA HOJE.",
-                        cor: "#ff4757"
-                    },
-                    "51-60": {
-                        texto: "🚨 ALERTA VERMELHO: Dois terços da sua vida já passaram.",
-                        cor: "#ff3838"
-                    },
-                    "61-75": {
-                        texto: "💔 O TEMPO ESTÁ SE ESGOTANDO. É AGORA ou NUNCA.",
-                        cor: "#c23616"
-                    }
-                };
-
-                const range = getAgeRange(age);
-                const message = fallbackMessages[range];
-                
-                const messageContainer = document.getElementById('messageContainer');
-                messageContainer.innerHTML = `
-                    <div class="message" style="border-left-color: ${message.cor};">
-                        ${message.texto}
-                    </div>
-                `;
-            }
+            // Carregar e exibir mensagem de idade
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = await loadAgeMessage(age, daysLeft, weeksLeft, heartbeatsLeft);
 
             document.getElementById('results').classList.remove('hidden');
             
@@ -1608,38 +1964,31 @@
             }, duration / steps);
         }
 
-        // Enter no input
-        document.getElementById('age').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                calculateLife();
-            }
-        });
 
-        // ==================== MÚSICAS RELAXANTES (LOOP INFINITO) ====================
-        
-        // Lista de músicas relaxantes (adicione arquivos .mp3 na pasta musicas/)
-        // O sistema carrega automaticamente e toca em loop infinito
-        const musicasRelaxantes = [
-            'harpa.mp3'
-            // Adicione mais arquivos aqui, ex: 'calmaria.mp3', 'paz.mp3'
-        ];
 
-        let currentMusicIndex = 0;
-        let isPlaying = false;
-        const audio = document.getElementById('audioPlayer');
+        // ==================== MÚSICAS RELAXANTES ====================
         
         // Função para carregar música
-        function loadMusic() {
+        function loadMusic(index) {
+            if (index < 0) index = musicasRelaxantes.length - 1;
+            if (index >= musicasRelaxantes.length) index = 0;
+            
+            currentMusicIndex = index;
             const fileName = musicasRelaxantes[currentMusicIndex];
             const musicName = fileName.replace('.mp3', '').replace(/-|_/g, ' ');
             
             audio.src = 'musicas/' + fileName;
             document.getElementById('songName').textContent = musicName.charAt(0).toUpperCase() + musicName.slice(1);
+            
+            // Atualizar indicador de múltiplas músicas
+            if (musicasRelaxantes.length > 1) {
+                document.getElementById('songName').textContent += ` (${currentMusicIndex + 1}/${musicasRelaxantes.length})`;
+            }
         }
         
         // Configurações iniciais
         audio.volume = 0.3; // 30% de volume inicial (mais suave para relaxar)
-        loadMusic();
+        loadMusic(0);
 
         // Play/Pause
         function togglePlay() {
@@ -1654,6 +2003,30 @@
                 isPlaying = true;
             }
         }
+
+        // Próxima música
+        function nextSong() {
+            loadMusic(currentMusicIndex + 1);
+            if (isPlaying) {
+                audio.play();
+            }
+        }
+
+        // Música anterior
+        function previousSong() {
+            loadMusic(currentMusicIndex - 1);
+            if (isPlaying) {
+                audio.play();
+            }
+        }
+
+        // Ao terminar, tocar próxima automaticamente
+        audio.addEventListener('ended', () => {
+            nextSong();
+            if (isPlaying) {
+                audio.play();
+            }
+        });
 
         // Volume
         function changeVolume(value) {
@@ -1706,6 +2079,28 @@
             }
         });
 
+        // ==================== JOGO RELAXANTE - RESPIRAÇÃO GUIADA ====================
+
+        function startBreathingAnimation() {
+            const breathingText = document.getElementById('breathingText');
+            const phases = ['Inspire', 'Segure', 'Expire', 'Segure'];
+            let currentPhase = 0;
+
+            breathingText.textContent = phases[0];
+
+            breathingInterval = setInterval(() => {
+                currentPhase = (currentPhase + 1) % phases.length;
+                breathingText.textContent = phases[currentPhase];
+            }, 4000); // Muda a cada 4 segundos
+        }
+
+        function stopBreathingAnimation() {
+            if (breathingInterval) {
+                clearInterval(breathingInterval);
+            }
+        }
+
+        // ==================== FIM DO JOGO RELAXANTE ====================
         // ==================== FIM DAS MÚSICAS RELAXANTES ====================
     </script>
 
