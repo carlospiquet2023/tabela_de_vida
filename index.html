@@ -503,6 +503,151 @@
             box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
         }
 
+        /* TV de Vídeos Relaxantes */
+        .video-tv-container {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(40, 40, 60, 0.95));
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 800px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .tv-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tv-title {
+            font-size: 1.5em;
+            color: #ffd700;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tv-screen {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .tv-screen iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .tv-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .tv-control-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .tv-control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .tv-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .tv-video-info {
+            text-align: center;
+            color: #fff;
+            font-size: 1em;
+            margin: 0 15px;
+            min-width: 200px;
+        }
+
+        .tv-video-title {
+            font-weight: 600;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+
+        .tv-video-counter {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .tv-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tv-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .tv-dot.active {
+            background: #ffd700;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .video-tv-container {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+
+            .tv-title {
+                font-size: 1.2em;
+            }
+
+            .tv-controls {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .tv-video-info {
+                min-width: 100%;
+                order: -1;
+                margin-bottom: 10px;
+            }
+        }
+
         .player-content {
             display: flex;
             align-items: center;
@@ -1236,6 +1381,43 @@
             </div>
         </div>
 
+        <!-- TV de Vídeos Relaxantes -->
+        <div class="video-tv-container">
+            <div class="tv-header">
+                <div class="tv-title">
+                    📺 Vídeos para Acalmar a Mente
+                </div>
+            </div>
+
+            <div class="tv-screen">
+                <iframe 
+                    id="youtubePlayer"
+                    src="https://www.youtube.com/embed/pWjmpSD-ph0?enablejsapi=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="tv-controls">
+                <button class="tv-control-btn" onclick="previousVideo()" title="Vídeo Anterior">⏮</button>
+                
+                <div class="tv-video-info">
+                    <div class="tv-video-title" id="videoTitle">Música Relaxante</div>
+                    <div class="tv-video-counter">
+                        <span id="currentVideo">1</span> de <span id="totalVideos">3</span>
+                    </div>
+                </div>
+                
+                <button class="tv-control-btn" onclick="nextVideo()" title="Próximo Vídeo">⏭</button>
+            </div>
+
+            <div class="tv-indicator">
+                <div class="tv-dot active" data-index="0"></div>
+                <div class="tv-dot" data-index="1"></div>
+                <div class="tv-dot" data-index="2"></div>
+            </div>
+        </div>
+
         <div id="results" class="hidden">
             <div class="stats">
                 <div class="stat-card">
@@ -1457,6 +1639,24 @@
     <script>
         // ==================== CONSTANTES E VARIÁVEIS GLOBAIS ====================
         
+        // Lista de vídeos do YouTube
+        const youtubeVideos = [
+            {
+                id: 'pWjmpSD-ph0',
+                title: 'Música para Acalmar'
+            },
+            {
+                id: 'DosWNASYKZ4',
+                title: 'Sons da Natureza'
+            },
+            {
+                id: 'GJUel9OaICg',
+                title: 'Meditação Guiada'
+            }
+        ];
+
+        let currentVideoIndex = 0;
+
         // Citações inspiradoras
         const quotes = [
             "\"A vida não é medida pela quantidade de respirações que tomamos, mas pelos momentos que nos tiram o fôlego.\" — Maya Angelou",
@@ -1985,6 +2185,65 @@
         }
 
 
+
+        // ==================== TV DE VÍDEOS DO YOUTUBE ====================
+
+        function loadVideo(index) {
+            if (index < 0) index = youtubeVideos.length - 1;
+            if (index >= youtubeVideos.length) index = 0;
+            
+            currentVideoIndex = index;
+            const video = youtubeVideos[currentVideoIndex];
+            
+            // Atualizar iframe
+            const player = document.getElementById('youtubePlayer');
+            player.src = `https://www.youtube.com/embed/${video.id}?enablejsapi=1`;
+            
+            // Atualizar informações
+            document.getElementById('videoTitle').textContent = video.title;
+            document.getElementById('currentVideo').textContent = currentVideoIndex + 1;
+            document.getElementById('totalVideos').textContent = youtubeVideos.length;
+            
+            // Atualizar indicadores
+            document.querySelectorAll('.tv-dot').forEach((dot, i) => {
+                if (i === currentVideoIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function nextVideo() {
+            loadVideo(currentVideoIndex + 1);
+        }
+
+        function previousVideo() {
+            loadVideo(currentVideoIndex - 1);
+        }
+
+        // Adicionar clique nos indicadores
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tv-dot').forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    loadVideo(index);
+                });
+                dot.style.cursor = 'pointer';
+            });
+
+            // Navegação por teclado (setas) quando foco na TV
+            const tvContainer = document.querySelector('.video-tv-container');
+            if (tvContainer) {
+                tvContainer.setAttribute('tabindex', '0');
+                tvContainer.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') {
+                        nextVideo();
+                    } else if (e.key === 'ArrowLeft') {
+                        previousVideo();
+                    }
+                });
+            }
+        });
 
         // ==================== MÚSICAS RELAXANTES ====================
         
