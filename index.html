@@ -332,8 +332,8 @@
         }
 
         .oracle-card {
-            width: 200px;
-            height: 300px;
+            width: 220px;
+            height: 340px;
             position: relative;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -390,18 +390,33 @@
             text-align: center;
             overflow-y: auto;
             border: 3px solid #ffd700;
+            justify-content: flex-start;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         .card-back h3 {
             color: #ffd700;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            margin-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.2em;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
         .card-back p {
-            font-size: 0.9em;
-            line-height: 1.6;
+            font-size: 0.85em;
+            line-height: 1.5;
             color: #fff;
+            margin: 8px 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .card-back hr {
+            width: 100%;
+            margin: 8px 0;
+            flex-shrink: 0;
         }
 
         .oracle-instructions {
@@ -1808,37 +1823,38 @@
         }
 
         function getFallbackMessages() {
-            return {
-                "0-10": {
-                    texto: "🌱 Você está apenas começando sua jornada. O mundo está cheio de possibilidades infinitas.",
-                    cor: "#4834df"
-                },
-                "11-20": {
-                    texto: "⚡ A juventude é sua aliada mais poderosa. Você tem energia, tempo e o mundo aos seus pés.",
-                    cor: "#2ed573"
-                },
-                "21-30": {
-                    texto: "🎯 Estes são anos cruciais, decisivos. As escolhas que você faz AGORA ecoarão por décadas.",
-                    cor: "#feca57"
-                },
-                "31-40": {
-                    texto: "⏰ Você está na primeira metade da vida. Mas olhe bem: METADE JÁ SE FOI.",
-                    cor: "#ff6b6b"
-                },
-                "41-50": {
-                    texto: "⚠️ MAIS DA METADE JÁ SE FOI. Pare de adiar. FAÇA HOJE.",
-                    cor: "#ff4757"
-                },
-                "51-60": {
-                    texto: "🚨 ALERTA VERMELHO: Dois terços da sua vida já passaram.",
-                    cor: "#ff3838"
-                },
-                "61-75": {
-                    texto: "� Esta é a época dourada da sabedoria e da plenitude. Continue criando memórias lindas!",
-                    cor: "#c23616"
-                }
-            };
+    return {
+        "0-10": {
+            texto: "🌱 Você está começando a trilhar o caminho da vida. Tudo é novo, curioso e cheio de cores. Brinque, descubra, ria sem medo. Cada passo, cada sonho e cada abraço estão ajudando você a crescer. Guarde bem este tempo: ele é o solo onde florescem as memórias mais puras.",
+            cor: "#4834df"
+        },
+        "11-20": {
+            texto: "⚡ A juventude é uma chama brilhante — aproveite-a com sabedoria e alegria. Experimente, aprenda, caia e levante-se quantas vezes for preciso. O mundo ainda é um grande livro aberto esperando suas histórias. Ame, perdoe e seja verdadeiro. Esta fase é o começo de quem você se tornará.",
+            cor: "#2ed573"
+        },
+        "21-30": {
+            texto: "🎯 Esta é uma fase de escolhas e descobertas profundas. O mundo começa a mostrar seus desafios, mas também suas recompensas. Invista em quem você é, confie no seu caminho e não se compare a ninguém. O tempo é um aliado quando usado com propósito. Viva o presente com coragem e gratidão.",
+            cor: "#feca57"
+        },
+        "31-40": {
+            texto: "🌅 Você carrega consigo histórias, experiências e cicatrizes que moldam quem você é. A vida pode parecer acelerada, mas ainda há tanto para aprender, amar e construir. Olhe para dentro e veja o quanto já conquistou. Valorize o agora, os sorrisos ao seu redor e tudo o que ainda está por vir. O tempo segue, mas o coração escolhe o ritmo.",
+            cor: "#ff6b6b"
+        },
+        "41-50": {
+            texto: "🌻 Esta é a fase da sabedoria serena. Olhe para trás com ternura e siga em frente com leveza. Ainda há sonhos a realizar, pessoas a abraçar e risadas a compartilhar. O tempo pode passar, mas a essência continua viva. Faça o que traz paz, e lembre-se: a felicidade se esconde nas coisas simples.",
+            cor: "#ff9f43"
+        },
+        "51-60": {
+            texto: "🌙 A vida já te ensinou muito — e agora é hora de apreciar cada pôr do sol como uma bênção. Diga o que sente, perdoe sem esperar retorno, abrace quem te faz bem. A serenidade é o presente que o tempo oferece a quem viveu com o coração aberto. Você ainda tem capítulos lindos para escrever.",
+            cor: "#ffb142"
+        },
+        "61-75": {
+            texto: "💖 Você chegou a um ponto onde o tempo se transforma em sabedoria. Cada ruga carrega uma lembrança, cada sorriso conta uma história. Agora, o segredo é viver com leveza: sentir o vento, agradecer pelo dia, rir do que passou e acolher o que vem. Abrace seus netos, ame sem pressa e descanse em paz com o que construiu. A vida foi — e ainda é — um presente precioso.",
+            cor: "#c23616"
         }
+    };
+}
+
 
         function getAgeRange(age) {
             if (age <= 10) return "0-10";
@@ -1854,7 +1870,8 @@
             const range = getAgeRange(age);
             
             try {
-                const response = await fetch('mensagens_idade.json');
+                // Adiciona timestamp para evitar cache
+                const response = await fetch('mensagens_idade.json?v=' + new Date().getTime());
                 const messages = await response.json();
                 const message = messages[range];
                 
