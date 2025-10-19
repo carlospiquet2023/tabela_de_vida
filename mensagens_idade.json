@@ -12,19 +12,23 @@
     "cor": "#feca57"
   },
   "31-40": {
-    "texto": "� Você conquistou experiência e ainda tem muita energia para realizar! Olhe para trás e veja tudo que já construiu. Olhe para frente e veja as infinitas possibilidades. Este é o momento de equilibrar sabedoria com ousadia. Ainda há tempo para novos começos, grandes transformações e sonhos realizados.",
+    "texto": "🌳 Você conquistou experiência e ainda tem muita energia para realizar! Olhe para trás e veja tudo que já construiu. Olhe para frente e veja as infinitas possibilidades. Este é o momento de equilibrar sabedoria com ousadia. Ainda há tempo para novos começos, grandes transformações e sonhos realizados.",
     "cor": "#ff6b6b"
   },
   "41-50": {
-    "texto": "� Você está em um momento de clareza e propósito! Com a experiência que conquistou, agora pode focar no que realmente importa. Há tanto ainda para viver, aprender e compartilhar. Continue criando memórias, cultivando relacionamentos e aproveitando cada fase com gratidão e entusiasmo.",
+    "texto": "🎯 Você está em um momento de clareza e propósito! Com a experiência que conquistou, agora pode focar no que realmente importa. Há tanto ainda para viver, aprender e compartilhar. Continue criando memórias, cultivando relacionamentos e aproveitando cada fase com gratidão e entusiasmo.",
     "cor": "#ff9f43"
   },
   "51-60": {
-    "texto": "� Que perspectiva maravilhosa você conquistou! Agora pode apreciar a vida com mais leveza e sabedoria. Ainda há muitos pores do sol para admirar, risadas para compartilhar e experiências para viver. Aproveite para fazer o que ama, estar com quem ama e desfrutar de cada momento com serenidade.",
+    "texto": "🌻 Que perspectiva maravilhosa você conquistou! Agora pode apreciar a vida com mais leveza e sabedoria. Ainda há muitos pores do sol para admirar, risadas para compartilhar e experiências para viver. Aproveite para fazer o que ama, estar com quem ama e desfrutar de cada momento com serenidade.",
     "cor": "#ffb142"
   },
   "61-75": {
-    "texto": "� Você é um tesouro de experiências e sabedoria! Cada momento tem um valor especial agora. Continue criando memórias preciosas, inspirando quem está ao seu redor e vivendo com plenitude. A vida é uma jornada contínua de aprendizado e amor. Aproveite cada dia como o presente que ele é!",
+    "texto": "👑 Você é um tesouro de experiências e sabedoria! Cada momento tem um valor especial agora. Continue criando memórias preciosas, inspirando quem está ao seu redor e vivendo com plenitude. A vida é uma jornada contínua de aprendizado e amor. Aproveite cada dia como o presente que ele é!",
     "cor": "#c23616"
+  },
+  "75+": {
+    "texto": "✨ Você alcançou uma idade que poucos têm o privilégio de viver! Cada dia é uma vitória, cada momento é sagrado. Sua existência é uma inspiração viva de resiliência e sabedoria. Não se trata de contar dias, mas de fazer cada dia contar. Você já provou que a vida é sobre qualidade, não quantidade. Continue celebrando cada amanhecer, cada sorriso, cada abraço. O agora é seu maior presente! 💎",
+    "cor": "#8e44ad"
   }
 }

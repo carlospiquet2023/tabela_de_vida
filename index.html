@@ -106,6 +106,43 @@
             font-size: 1.15em;
         }
 
+        /* Disclaimer / Aviso */
+        .disclaimer {
+            max-width: 900px;
+            margin: 10px auto 20px;
+            padding: 15px 20px;
+            background: rgba(72, 219, 251, 0.08);
+            border-left: 6px solid #48dbfb;
+            color: #eaf6fb;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .result-disclaimer {
+            margin: 18px 0;
+            padding: 12px 16px;
+            background: rgba(255, 215, 0, 0.06);
+            border-left: 6px solid #ffd700;
+            color: #fff6e6;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .special-message {
+            display: none; /* esconde por padrão */
+            margin: 18px 0;
+            padding: 22px;
+            background: linear-gradient(135deg, rgba(142,68,173,0.12), rgba(102,126,234,0.08));
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #fff;
+            font-size: 1.05em;
+            line-height: 1.6;
+            text-align: center;
+        }
+
         .input-section {
             background: rgba(255, 255, 255, 0.08);
             padding: 40px;
@@ -951,6 +988,116 @@
             text-align: center;
         }
 
+        /* Mensagem Especial para Idades Avançadas */
+        .special-age-message {
+            background: linear-gradient(135deg, rgba(142, 68, 173, 0.2), rgba(155, 89, 182, 0.2));
+            padding: 50px 40px;
+            border-radius: 25px;
+            margin-bottom: 35px;
+            border: 3px solid rgba(142, 68, 173, 0.4);
+            box-shadow: 0 10px 50px rgba(142, 68, 173, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .special-message-content h2 {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .special-message-content .main-message {
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: #fff;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .wisdom-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .wisdom-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .wisdom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .wisdom-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .wisdom-text {
+            font-size: 1.1em;
+            color: #ffd700;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .wisdom-quote {
+            font-size: 1.3em;
+            font-style: italic;
+            color: #ffd700;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .present-focus {
+            font-size: 1.5em;
+            color: #fff;
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+        }
+
+        .present-focus strong {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .special-age-message {
+                padding: 30px 20px;
+            }
+
+            .special-message-content h2 {
+                font-size: 1.8em;
+            }
+
+            .wisdom-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .wisdom-quote {
+                font-size: 1.1em;
+            }
+
+            .present-focus {
+                font-size: 1.2em;
+            }
+        }
+
         .reflection-question {
             font-size: 1.4em;
             color: #48dbfb;
@@ -1368,6 +1515,21 @@
         <p class="subtitle">Cada quadrado representa um ano da sua jornada.</p>
         <p class="subtitle highlight">Uma visualização para refletir sobre o tempo e as possibilidades que você tem.</p>
         
+        <!-- Aviso importante -->
+        <div style="background: linear-gradient(135deg, rgba(72, 219, 251, 0.15), rgba(155, 89, 182, 0.15)); padding: 25px; border-radius: 15px; margin: 20px 0; border-left: 4px solid #48dbfb; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <h3 style="color: #48dbfb; margin: 0 0 15px 0; font-size: 1.3em; display: flex; align-items: center; gap: 10px;">
+                💡 Importante: Esta não é uma previsão!
+            </h3>
+            <p style="color: #fff; font-size: 1.05em; line-height: 1.8; margin: 0;">
+                Esta ferramenta apenas utiliza a <strong>média de expectativa de vida</strong> para criar uma <strong>reflexão visual sobre o tempo</strong>. 
+                Não se trata de adivinhar o futuro, e sim de inspirar presença e propósito. 🙏
+            </p>
+            <p style="color: #ffd700; font-size: 1.05em; line-height: 1.8; margin: 10px 0 0 0; font-weight: 600;">
+                ✨ A ideia é te lembrar de aproveitar cada instante, valorizar o que realmente importa 
+                e deixar de lado as preocupações que não levam a nada. Viva com leveza, viva de verdade! 🌟
+            </p>
+        </div>
+        
         <!-- Citação inspiradora aleatória -->
         <div style="text-align: center; margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px; border-left: 4px solid #48dbfb;">
             <p id="randomQuote" style="font-style: italic; color: #48dbfb; font-size: 1.15em; line-height: 1.6;"></p>
@@ -1376,7 +1538,7 @@
         <div class="input-section">
             <div class="age-input">
                 <label for="age">Quantos anos você tem?</label>
-                <input type="number" id="age" min="0" max="75" placeholder="0">
+                <input type="number" id="age" min="0" max="100" placeholder="0">
                 <button onclick="calculateLife()">✨ Visualizar Minha Jornada</button>
             </div>
         </div>
@@ -1419,6 +1581,15 @@
         </div>
 
         <div id="results" class="hidden">
+            <!-- Lembrete antes dos resultados -->
+            <div style="background: rgba(255, 215, 0, 0.1); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 2px dashed #ffd700; text-align: center;">
+                <p style="color: #ffd700; font-size: 1.15em; margin: 0; font-weight: 600; line-height: 1.7;">
+                    🎯 Lembre-se: Os números abaixo são apenas <strong>estimativas baseadas em médias</strong>.<br>
+                    Use esta visualização para <strong>refletir sobre prioridades</strong>, não para criar ansiedade!<br>
+                    ✨ <em>Cada dia é único e imprevisível - aproveite o agora!</em> ✨
+                </p>
+            </div>
+            
             <div class="stats">
                 <div class="stat-card">
                     <div class="stat-number" id="yearsLived">0</div>
@@ -1456,6 +1627,15 @@
                     <span>🌱 Anos de Possibilidades</span>
                 </div>
             </div>
+            
+            <!-- Mensagem sobre a visualização -->
+            <div style="text-align: center; margin: 20px 0; padding: 15px; background: rgba(155, 89, 182, 0.1); border-radius: 10px;">
+                <p style="color: #9b59b6; font-size: 1em; margin: 0; font-style: italic; line-height: 1.6;">
+                    💭 Esta grade visual não determina seu destino.<br>
+                    Ela existe para te lembrar: <strong>pare de adiar o que importa</strong>, 
+                    deixe de lado preocupações sem solução e <strong>simplesmente VIVA</strong>! 🌟
+                </p>
+            </div>
 
             <div class="grid-container" id="lifeGrid"></div>
 
@@ -1489,7 +1669,9 @@
 
         <div class="footer">
             <p class="footer-message">
-                "Cada momento é uma oportunidade de criar algo especial. Você está aqui, agora, com infinitas possibilidades à sua frente. O que você vai fazer com o seu tempo?"
+                "Esta ferramenta não prevê seu futuro - ela te convida a <strong>viver melhor o presente</strong>. 
+                Solte as preocupações inúteis, foque no que te faz feliz e simplesmente VIVA! 
+                Cada momento é uma oportunidade de criar algo especial. O que você vai fazer AGORA?" ✨
             </p>
         </div>
     </div>
@@ -2054,6 +2236,10 @@
         "61-75": {
             texto: "� Você é um tesouro de experiências e sabedoria! Cada momento tem um valor especial agora. Continue criando memórias preciosas, inspirando quem está ao seu redor e vivendo com plenitude. A vida é uma jornada contínua de aprendizado e amor. Aproveite cada dia como o presente que ele é!",
             cor: "#c23616"
+        },
+        "75+": {
+            texto: "✨ Você alcançou uma idade que poucos têm o privilégio de viver! Cada dia é uma vitória, cada momento é sagrado. Sua existência é uma inspiração viva de resiliência e sabedoria. Não se trata de contar dias, mas de fazer cada dia contar. Você já provou que a vida é sobre qualidade, não quantidade. Continue celebrando cada amanhecer, cada sorriso, cada abraço. O agora é seu maior presente! 💎",
+            cor: "#8e44ad"
         }
     };
 }
@@ -2066,7 +2252,8 @@
             if (age <= 40) return "31-40";
             if (age <= 50) return "41-50";
             if (age <= 60) return "51-60";
-            return "61-75";
+            if (age <= 74) return "61-75";
+            return "75+"; // Para 75 anos ou mais
         }
 
         async function loadAgeMessage(age, daysLeft, weeksLeft, heartbeatsLeft) {
@@ -2101,8 +2288,8 @@
         async function calculateLife() {
             const age = parseInt(document.getElementById('age').value);
             
-            if (isNaN(age) || age < 0 || age > 75) {
-                alert('Por favor, insira uma idade válida entre 0 e 75 anos.');
+            if (isNaN(age) || age < 0 || age > 100) {
+                alert('Por favor, insira uma idade válida entre 0 e 100 anos.');
                 return;
             }
 
@@ -2112,18 +2299,70 @@
             // Cálculos extras
             const daysLeft = yearsLeft * 365;
             const weeksLeft = Math.floor(yearsLeft * 52);
-            // Batimentos cardíacos (média: 70 bpm * 60 min * 24 horas * 365 dias)
             const heartbeatsPerYear = 70 * 60 * 24 * 365;
             const heartbeatsLeft = Math.floor(heartbeatsPerYear * yearsLeft);
 
-            document.getElementById('yearsLived').textContent = age;
-            document.getElementById('yearsLeft').textContent = yearsLeft;
-            document.getElementById('percentage').textContent = percentage + '%';
-            
-            // Animar números grandes com formatação
-            animateNumber('heartbeats', heartbeatsLeft, true);
-            animateNumber('daysLeft', daysLeft, false);
-            animateNumber('weeksLeft', weeksLeft, false);
+            // Verificar se é idade avançada (61+) para tratamento especial
+            const isAdvancedAge = age >= 61;
+
+            if (isAdvancedAge) {
+                // Ocultar os cards de estatísticas
+                document.querySelector('.stats').style.display = 'none';
+                
+                // Criar mensagem especial no lugar dos cards
+                const statsContainer = document.querySelector('.stats');
+                const specialMessage = document.createElement('div');
+                specialMessage.className = 'special-age-message';
+                specialMessage.innerHTML = `
+                    <div class="special-message-content">
+                        <h2>✨ Cada Momento é Precioso ✨</h2>
+                        <p class="main-message">
+                            Você alcançou uma idade de sabedoria e plenitude. 
+                            Não se trata mais de contar anos, mas de fazer cada momento valer a pena.
+                        </p>
+                        <div class="wisdom-cards">
+                            <div class="wisdom-card">
+                                <div class="wisdom-icon">🌅</div>
+                                <div class="wisdom-text">Cada amanhecer<br>é uma vitória</div>
+                            </div>
+                            <div class="wisdom-card">
+                                <div class="wisdom-icon">💫</div>
+                                <div class="wisdom-text">Cada memória<br>é um tesouro</div>
+                            </div>
+                            <div class="wisdom-card">
+                                <div class="wisdom-icon">❤️</div>
+                                <div class="wisdom-text">Cada abraço<br>é sagrado</div>
+                            </div>
+                            <div class="wisdom-card">
+                                <div class="wisdom-icon">🌟</div>
+                                <div class="wisdom-text">Cada sorriso<br>é uma bênção</div>
+                            </div>
+                        </div>
+                        <p class="wisdom-quote">
+                            "A vida não se mede pela quantidade de respirações, mas pelos momentos que nos tiram o fôlego."
+                        </p>
+                        <p class="present-focus">
+                            🙏 <strong>Viva o AGORA.</strong> Este momento é seu maior presente.
+                        </p>
+                    </div>
+                `;
+                statsContainer.parentNode.insertBefore(specialMessage, statsContainer);
+            } else {
+                // Mostrar os cards normalmente e remover mensagem especial se existir
+                document.querySelector('.stats').style.display = 'grid';
+                const existingSpecialMessage = document.querySelector('.special-age-message');
+                if (existingSpecialMessage) {
+                    existingSpecialMessage.remove();
+                }
+
+                document.getElementById('yearsLived').textContent = age;
+                document.getElementById('yearsLeft').textContent = yearsLeft;
+                document.getElementById('percentage').textContent = percentage + '%';
+                
+                animateNumber('heartbeats', heartbeatsLeft, true);
+                animateNumber('daysLeft', daysLeft, false);
+                animateNumber('weeksLeft', weeksLeft, false);
+            }
 
             // Criar grid de anos
             const grid = document.getElementById('lifeGrid');
