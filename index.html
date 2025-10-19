@@ -910,6 +910,85 @@
                 font-size: 1.1em;
             }
         }
+
+        /* Rodapé */
+        footer {
+            width: 100%;
+            margin-top: 60px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95));
+            backdrop-filter: blur(10px);
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+            text-align: center;
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        footer .developer-info {
+            font-size: 1em;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        footer .developer-name {
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        footer .email {
+            color: #48dbfb;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+        }
+
+        footer .email:hover {
+            color: #ffd700;
+            border-bottom: 1px solid #ffd700;
+            transform: translateY(-2px);
+        }
+
+        footer .license {
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer .license a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        footer .license a:hover {
+            color: #48dbfb;
+            text-decoration: underline;
+        }
+
+        footer .copyright {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 25px 15px;
+            }
+
+            footer .developer-info {
+                font-size: 0.95em;
+            }
+
+            footer .developer-name {
+                font-size: 1.05em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1593,5 +1672,21 @@
 
         // ==================== FIM DAS MÚSICAS RELAXANTES ====================
     </script>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="developer-info">
+            💻 Desenvolvedor: <span class="developer-name">Carlos Antonio de Oliveira Piquet</span>
+        </div>
+        <div class="developer-info">
+            📧 Email: <a href="mailto:carlospiquet.projetos@gmail.com" class="email">carlospiquet.projetos@gmail.com</a>
+        </div>
+        <div class="license">
+            📜 Licença: <a href="https://github.com/carlospiquet2023/tabela_de_vida/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+        </div>
+        <div class="copyright">
+            © 2025 Tabela da Vida | Todos os direitos reservados
+        </div>
+    </footer>
 </body>
 </html>
